@@ -1,0 +1,17 @@
+@media screen and (max-width: 560px) {
+	.sidebar .nav-item .nav-link span {
+        font-size: .55rem !important;
+    }
+}
+
+@media screen and (min-width: 561px) {
+	.sidebar .nav-item .nav-link span {
+        font-size: 1rem !important;
+    }
+}
+
+@media screen and (min-width: 760px) {
+	.sidebar .nav-item .nav-link span {
+        font-size: 1.2rem !important;
+    }
+}
