@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react'
-import {
-    Navigate, useNavigate
-} from "react-router-dom";
+import {Navigate, useNavigate} from "react-router-dom";
+    
+
 import { Table, Button, Modal, Spinner, Form } from "react-bootstrap";
-import ShopLogo from '../../../asset/image/Shop_Logo.jpeg'
+import ShopLogo from '../../../asset/image/logo1.jpg'
 
 export default function Header(props) {
     const [searchData, setSearchData] = useState('')
@@ -20,7 +20,7 @@ export default function Header(props) {
 
     return (
         <div>
-            <div style={{height: '60px', background: 'gray', width: '100vw', position: 'fixed', zIndex: 100}}>
+            <div style={{height: '60px', background: '#f0486c', width: '100vw', position: 'fixed', zIndex: 100}}>
                 <div style={{display: 'flex', flexWrap: 'nowrap', alignItems: 'center'}}>
                     <div style={{width: '30%', marginLeft: '10%', marginTop: '5px'}}>
                         <img src={ShopLogo} style={{width: '50px', height: '50px'}}/>
@@ -66,6 +66,7 @@ export default function Header(props) {
                         </Modal.Footer>
                     </Modal> : ''
                 }
+
                 <div className="container">
                     <a className="navbar-brand">GEAR SHOP</a>
                     <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -78,6 +79,7 @@ export default function Header(props) {
                                 onClick={() => {
                                     navigate('/')
                                 }}
+                                //
                             >
                                 <a className="nav-link"
 

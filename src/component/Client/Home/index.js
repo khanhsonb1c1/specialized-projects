@@ -6,7 +6,7 @@ import '../../../asset/styles/main_styles.css'
 import '../../../asset/styles/responsive.css'
 import './style.scss'
 import BannerGear from '../../../asset/image/Banner_Gear.jpg';
-import BannerGear2 from '../../../asset/image/Banner_Gear2.jpeg'
+import BannerGear2 from '../../../asset/image/a2.jpg'
 import DealBanner from '../../../asset/image/Deal_Banner.jpeg';
 import axios from 'axios'
 import {
@@ -66,7 +66,9 @@ export default function ClientHome(props) {
 
     const addProductToCart = async (productId) => {
         if (customerData) {
+
             const addCartRes = await axios(`${window.SERVER_HOST}/api/cart/add-cart`, {
+
                 method: 'POST',
                 data: {
                     customerId: customerData.ctm_id,
@@ -168,18 +170,22 @@ export default function ClientHome(props) {
                     {/* <li data-target="#carouselExampleIndicators" data-slide-to={2} /> */}
                 </ol>
                 <div className="carousel-inner" style={{ height: '100%', minHeight: '100vh', maxHeight: '100vh' }}>
-                    <div className="carousel-item active" style={{ height: '100%', minHeight: '100vh', maxHeight: '100vh', minWidth: '100vw' }}>
+                    <div className="carousel-item active" 
+                    style={{ height: '100%', minHeight: '100vh', maxHeight: '100vh', minWidth: '100vw' }}>
+
                         <img src={BannerGear} class="img-fluid" style={{ height: '100%', minHeight: '100vh', maxHeight: '100vh', objectFit: 'cover', minWidth: '100vw' }} />
                         <div className="carousel-caption">
 
 
                         </div>
                     </div>
-                    <div className="carousel-item" style={{ height: '100%', minHeight: '100vh', maxHeight: '100vh', minWidth: '100vw' }}>
+                    <div className="carousel-item" 
+                    style={{ height: '100%', minHeight: '100vh', maxHeight: '100vh', minWidth: '100vw' }}>
+                        
                         <img src={BannerGear2} class="img-fluid" style={{ height: '100%', minHeight: '100vh', maxHeight: '100vh', objectFit: 'cover', minWidth: '100vw' }} />
-                        <div className="carousel-caption">
+                        {/* <div className="carousel-caption">
                             <h1 style={{ color: 'white' }}>New product</h1>
-                        </div>
+                        </div> */}
                     </div>
                 </div>
                 <a className="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
