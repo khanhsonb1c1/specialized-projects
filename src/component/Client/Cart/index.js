@@ -95,7 +95,7 @@ export default function ShopingCart(props) {
         }
     }
 
-    const checkoutCart = async (customerName, customerAddress) => {
+    const checkoutCart = async (customerName, customerAddress) => { // bổ sung customerPhone
         if ( cartProduct.length ){
             setLoadingCheckout(true)
             const checkoutCartRes = await axios(`${window.SERVER_HOST}/api/cart/checkout-cart`, {
@@ -106,6 +106,7 @@ export default function ShopingCart(props) {
                     cartTotalPrice,
                     customerAddress,
                     customerName
+                    //customerPhone
                 }
             })
     
@@ -130,8 +131,8 @@ export default function ShopingCart(props) {
             { openCheckoutModal ? 
                 <CheckoutModal 
                     setCustomerMoreInfo = {(moreInfo) => {
-                        const {customerName, customerAddress} = moreInfo
-                        checkoutCart(customerName, customerAddress)
+                        const {customerName, customerAddress} = moreInfo //customerPhone
+                        checkoutCart(customerName, customerAddress) // customerPhone
                     }}
 
                     displayErrorModal = {displayErrorModal}

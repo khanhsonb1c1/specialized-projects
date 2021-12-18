@@ -192,7 +192,7 @@ export default function ListProduct(props) {
                         aria-labelledby="example-modal-sizes-title-sm"
                     >
                         <Modal.Header>
-                            <Modal.Title>Thêm danh mục</Modal.Title>
+                            <Modal.Title>Thêm sản phẩm</Modal.Title>
                         </Modal.Header>
                         <Modal.Body>
                             <Form>

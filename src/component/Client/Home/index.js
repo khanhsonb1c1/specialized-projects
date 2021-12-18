@@ -286,8 +286,8 @@ export default function ClientHome(props) {
                         </div>
                         <div className="col-lg-6 text-right deal_ofthe_week_col">
                             <div className="deal_ofthe_week_content d-flex flex-column align-items-center float-right">
-                                <div className="section_title" style={{ backgroundColor: 'aliceblue' }}>
-                                    <h2 style={{ fontSize: '3rem', fontWeight: 900, color: 'red' }}>Ưu đãi khủng trong tuần</h2>
+                                <div className="section_title" style={{ backgroundColor: 'transparent' }}>
+                                    <h2 style={{ fontSize: '5rem', fontWeight: 1000, color: '#f76081', fontFamily:'serif' }}>Ưu đãi khủng trong tuần</h2>
                                 </div>
                                 <div className="red_button deal_ofthe_week_button"
                                     onClick={() => navigate('/product')}
