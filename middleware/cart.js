@@ -104,7 +104,7 @@ const deleteCartProduct = async (customerId, productId) => {
 const checkoutCart = async (customerId, cartProduct, cartTotalPrice, customerName, customerAddress) => {
     try{
         const createDate = new Date().toISOString()
-
+// insert dữ liệu vào bảng oder
         const insertOrderTable = await postgresql.query(`INSERT INTO user_order(user_id, price, create_date, status,order_customer, order_address ) VALUES(${Number(customerId)}, ${Number(cartTotalPrice)}, '${createDate}', 'Xác nhận', '${customerName}', '${customerAddress}')`)
         
         const getLastId = await postgresql.query(`SELECT MAX(order_id) FROM user_order`)
@@ -116,7 +116,7 @@ const checkoutCart = async (customerId, cartProduct, cartTotalPrice, customerNam
         const deleteCart = await postgresql.query(`DELETE FROM cart WHERE user_id = ${Number(customerId)}`)
 
         return {
-            success: true
+            success: true   
         }
 
     }catch(error){
