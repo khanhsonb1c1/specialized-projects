@@ -95,7 +95,7 @@ export default function ShopingCart(props) {
         }
     }
 
-    const checkoutCart = async (customerName, customerAddress) => { // bổ sung customerPhone
+    const checkoutCart = async (customerName, customerAddress, customerPhone) => { // bổ sung customerPhone
         if ( cartProduct.length ){
             setLoadingCheckout(true)
             const checkoutCartRes = await axios(`${window.SERVER_HOST}/api/cart/checkout-cart`, {
@@ -105,8 +105,8 @@ export default function ShopingCart(props) {
                     cartProduct,
                     cartTotalPrice,
                     customerAddress,
-                    customerName
-                    //customerPhone
+                    customerName,
+                    customerPhone
                 }
             })
     
@@ -131,8 +131,8 @@ export default function ShopingCart(props) {
             { openCheckoutModal ? 
                 <CheckoutModal 
                     setCustomerMoreInfo = {(moreInfo) => {
-                        const {customerName, customerAddress} = moreInfo //customerPhone
-                        checkoutCart(customerName, customerAddress) // customerPhone
+                        const {customerName, customerAddress, customerPhone} = moreInfo //customerPhone
+                        checkoutCart(customerName, customerAddress, customerPhone) // customerPhone
                     }}
 
                     displayErrorModal = {displayErrorModal}
@@ -226,6 +226,7 @@ export default function ShopingCart(props) {
 const CheckoutModal = (props) => {
     const [customerName, setCustomerName] = useState('')
     const [customerAddress, setCustomerAddress] = useState('')
+    const [customerPhone, setCustomerPhone] = useState('')
 
     const {displayErrorModal} = props
     return (
@@ -251,6 +252,7 @@ const CheckoutModal = (props) => {
                             }}
                         />
                     </Form.Group>
+
                     <Form.Group className="mb-3">
                         <Form.Label>Địa chỉ</Form.Label>
                         <Form.Control type="text" 
@@ -261,6 +263,19 @@ const CheckoutModal = (props) => {
                             }}
                         />
                     </Form.Group>
+
+                    <Form.Group className="mb-3">
+                        <Form.Label>SĐT</Form.Label>
+                        <Form.Control type="text" 
+                            placeholder="Nhập vào số điện thoại" 
+                            value={customerPhone}
+                            onChange={(event) => {
+                                setCustomerPhone(event.target.value)
+                            }}
+                        />
+                    </Form.Group>
+
+
 
                     {displayErrorModal.status && displayErrorModal.type === 'error'? 
                         <div style={{color: 'red'}}>{displayErrorModal.error}</div> : ''

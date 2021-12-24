@@ -13,10 +13,8 @@ import LoginPrivateRoute from '../PrivateRouter/login'
 import SignUpPrivateRoute from '../PrivateRouter/signup'
 
 // window.SERVER_HOST = "http://localhost:5005";
-window.SERVER_HOST = "https://gearshop-ks.herokuapp.com"
 
-
-
+window.SERVER_HOST = "https://sontestshop1.herokuapp.com/"
 
 
 export default function MainApp(props) {

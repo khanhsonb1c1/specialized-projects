@@ -80,7 +80,7 @@ export default function AdminOrder(props) {
                 <td>{orderItem.create_date}</td>
                 <td>{orderItem.price} vnđ</td>
                 <td>{orderItem.order_address}</td>
-                {/* <td>{orderItem.order_phone}</td> */}
+                <td>{orderItem.oder_phone}</td>
                 <td style={{ textAlign: 'center' }}>
                     <div style={{margin: '5px'}}>
                         <Button variant={orderItem.status === 'Xác nhận' ? 'primary' : 'secondary'}>Xác nhận</Button>
@@ -143,7 +143,9 @@ export default function AdminOrder(props) {
                                     <th>Ngày đặt hàng</th>
                                     <th>Tổng đơn hàng</th>
                                     <th>Địa chỉ</th>
+                                    <th>SĐT</th>
                                     <th>Trạng thái</th>
+
                                 </tr>
                             </thead>
                             <tbody>
