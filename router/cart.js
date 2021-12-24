@@ -30,8 +30,8 @@ router.delete('/delete-cart-product', bodyParser(), async (req, res) => {
 })
 
 router.post('/checkout-cart', bodyParser(), async (req, res) => {
-    const {customerId, cartProduct, cartTotalPrice, customerName, customerAddress} = req.body
-    const results = await cartMiddleware.checkoutCart(customerId, cartProduct, cartTotalPrice, customerName, customerAddress)
+    const {customerId, cartProduct, cartTotalPrice, customerName, customerAddress, customerPhone} = req.body
+    const results = await cartMiddleware.checkoutCart(customerId, cartProduct, cartTotalPrice, customerName, customerAddress, customerPhone)
     res.json(results)
 })
 

@@ -101,11 +101,12 @@ const deleteCartProduct = async (customerId, productId) => {
     }
 }
 
-const checkoutCart = async (customerId, cartProduct, cartTotalPrice, customerName, customerAddress) => {
+const checkoutCart = async (customerId, cartProduct, cartTotalPrice, customerName, customerAddress, customerPhone) => {
     try{
         const createDate = new Date().toISOString()
 // insert dữ liệu vào bảng oder
-        const insertOrderTable = await postgresql.query(`INSERT INTO user_order(user_id, price, create_date, status,order_customer, order_address ) VALUES(${Number(customerId)}, ${Number(cartTotalPrice)}, '${createDate}', 'Xác nhận', '${customerName}', '${customerAddress}')`)
+        const insertOrderTable = await postgresql.query(`INSERT INTO user_order(user_id, price, create_date, status,order_customer, order_address, order_phone ) 
+        VALUES(${Number(customerId)}, ${Number(cartTotalPrice)}, '${createDate}', 'Xác nhận', '${customerName}', '${customerAddress}', '${customerPhone}')`)
         
         const getLastId = await postgresql.query(`SELECT MAX(order_id) FROM user_order`)
         const lastId = Number(getLastId.rows[0].max)
@@ -151,6 +152,7 @@ const getOrder = async () => {
                         user_name: orderItem.user_name,
                         order_customer: orderItem.order_customer,
                         order_address: orderItem.order_address,
+                        order_phone: orderItem.oder_phone,
                         product: [
                             {
                                 product_id: orderItem.product_id,
