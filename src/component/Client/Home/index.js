@@ -17,6 +17,9 @@ import { Table, Button, Modal, Spinner, Form } from "react-bootstrap";
 import $ from 'jquery';
 import "jquery-ui/ui/effects/effect-slide"
 
+
+import MessengerCustomerChat from 'react-messenger-customer-chat'; // mess
+
 export default function ClientHome(props) {
     const [allCategory, setAllCategory] = useState([])
     const [newProduct, setNewProduct] = useState([])
@@ -144,6 +147,15 @@ export default function ClientHome(props) {
     })
 
     return (
+
+        
+        <MessengerCustomerChat
+       pageId="<102906258937008>"
+       appId="<496748328328301>" />,
+      
+    
+     
+   
         <div className="super_container client-home">
             {/* Header */}
             <Header {...props}/>
