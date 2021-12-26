@@ -17,6 +17,10 @@ window.SERVER_HOST = "https://sontestshop1.herokuapp.com"
 
 
 
+<<<<<<< HEAD
+=======
+window.SERVER_HOST = "https://sontestshop1.herokuapp.com"
+>>>>>>> 2dff5b45467a587bcf3e073dc432f9407591ea17
 
 
 export default function MainApp(props) {

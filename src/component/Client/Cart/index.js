@@ -95,7 +95,7 @@ export default function ShopingCart(props) {
         }
     }
 
-    const checkoutCart = async (customerName, customerAddress, customerPhone) => { // bổ sung customerPhone
+    const checkoutCart = async (customerName, customerAddress, customerPhone) => { 
         if ( cartProduct.length ){
             setLoadingCheckout(true)
             const checkoutCartRes = await axios(`${window.SERVER_HOST}/api/cart/checkout-cart`, {
@@ -105,8 +105,9 @@ export default function ShopingCart(props) {
                     cartProduct,
                     cartTotalPrice,
                     customerAddress,
+                    customerPhone,
                     customerName,
-                    customerPhone
+                    
                 }
             })
     
@@ -131,8 +132,8 @@ export default function ShopingCart(props) {
             { openCheckoutModal ? 
                 <CheckoutModal 
                     setCustomerMoreInfo = {(moreInfo) => {
-                        const {customerName, customerAddress, customerPhone} = moreInfo //customerPhone
-                        checkoutCart(customerName, customerAddress, customerPhone) // customerPhone
+                        const {customerName, customerAddress, customerPhone} = moreInfo 
+                        checkoutCart(customerName, customerAddress, customerPhone) 
                     }}
 
                     displayErrorModal = {displayErrorModal}
@@ -151,7 +152,11 @@ export default function ShopingCart(props) {
                                     <div className="col">
                                         <h4><b>Giỏ hàng</b></h4>
                                     </div>
-                                    <div className="col align-self-center text-right text-muted">{cartProduct.reduce((item1, item2) => {return item1.quality + item2.quality}, 0)} sản phẩm</div>
+                                    {/* <div className="col align-self-center text-right text-muted">
+
+                                        {cartProduct.reduce((item1, item2, item3) => {return item1.quality + item2.quality}, 0)} sản phẩm
+
+                                        </div> */}
                                 </div>
                             </div>
                             {cartProduct.map((cartItem, cartIndex) => {
@@ -223,6 +228,8 @@ export default function ShopingCart(props) {
     )
 }
 
+// pop-up checkoutcard
+
 const CheckoutModal = (props) => {
     const [customerName, setCustomerName] = useState('')
     const [customerAddress, setCustomerAddress] = useState('')
@@ -289,7 +296,8 @@ const CheckoutModal = (props) => {
                     onClick={() => 
                         props.setCustomerMoreInfo({
                         customerName,
-                        customerAddress
+                        customerAddress,
+                        customerPhone
                     })} 
                     disabled={props.loading}
                 >
