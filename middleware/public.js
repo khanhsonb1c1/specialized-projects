@@ -24,7 +24,7 @@ const customerSignUp = async (userName, userPassword, userFullname, userAge, use
 
             const insertAccount = await postgresql.query(
                 `INSERT INTO customer(user_name, password, user_fullname, user_age, user_phone, user_address, token) 
-                VALUES ('${userName}', '${userPassword}','${userFullname}','${userAge}','${userPhone}','${userAddress}' '${token}');`
+                VALUES ('${userName}', '${userPassword}','${userFullname}','${userAge}','${userPhone}','${userAddress}','${token}');`
             )
 
             const getCustomerId = await postgresql.query(
