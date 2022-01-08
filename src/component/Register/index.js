@@ -9,6 +9,11 @@ const SALT_ROUND = 10;
 export default function SignUpForm(props) {
     const [userName, setUserName] = useState('')
     const [password, setPassword] = useState('')
+    const [userFullname, setUserfullname] = useState('')
+    const [userPhone, setUserphone] = useState('')
+    const [userAge, setUserage] = useState('')
+    const [userAddress, setUseraddress] = useState('')
+
     const [signUpError, setSignUpError] = useState({status: false, error: ''})
     const {actions} = props
     let navigate = useNavigate();
@@ -67,6 +72,50 @@ export default function SignUpForm(props) {
                             placeholder="Mật khẩu" 
                             value={password}
                             onChange={(event) => setPassword(event.target.value)}
+                    />
+                </div>
+
+                <div className="form-group">
+                    <label>Tên đầy đủ</label>
+                    <input type="text" 
+                            className="form-control item" 
+                            id="phone-number" 
+                            placeholder="Tên" 
+                            value={userFullname}
+                            onChange={(event) => setUserfullname(event.target.value)}
+                    />
+                </div>
+
+                <div className="form-group">
+                    <label>Tuổi</label>
+                    <input type="text" 
+                            className="form-control item" 
+                            id="phone-number" 
+                            placeholder="Tuổi" 
+                            value={userAge}
+                            onChange={(event) => setUserage(event.target.value)}
+                    />
+                </div>
+
+                <div className="form-group">
+                    <label>Số điện thoại</label>
+                    <input type="text" 
+                            className="form-control item" 
+                            id="phone-number" 
+                            placeholder="SDT" 
+                            value={userPhone}
+                            onChange={(event) => setUserphone(event.target.value)}
+                    />
+                </div>
+
+                <div className="form-group">
+                    <label>Địa chỉ</label>
+                    <input type="text" 
+                            className="form-control item" 
+                            id="phone-number" 
+                            placeholder="Địa chỉ" 
+                            value={userAddress}
+                            onChange={(event) => setUseraddress(event.target.value)}
                     />
                 </div>
 
