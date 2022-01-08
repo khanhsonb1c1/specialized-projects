@@ -105,7 +105,7 @@ const checkoutCart = async (customerId, cartProduct, cartTotalPrice, customerNam
     try{
         const createDate = new Date().toISOString()
 // insert dữ liệu vào bảng oder
-        const insertOrderTable = await postgresql.query(`INSERT INTO user_order(user_id, price, create_date, status,order_customer, order_address, order_phone) 
+        const insertOrderTable = await postgresql.query(`INSERT INTO user_order(user_id, price, create_date, status,order_customer, order_address,order_phone) 
         VALUES(${Number(customerId)}, ${Number(cartTotalPrice)}, '${createDate}', 'Xác nhận', '${customerName}', '${customerAddress}', '${customerPhone}')`)
         
         const getLastId = await postgresql.query(`SELECT MAX(order_id) FROM user_order`)

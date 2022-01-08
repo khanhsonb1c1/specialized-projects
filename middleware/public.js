@@ -4,10 +4,11 @@ const SALT_ROUND = 10;
 const jwt = require("jsonwebtoken")
 const SECRET_TOKEN = 'FACE_TAG'
 
-const customerSignUp = async (userName, userPassword) => {
+const customerSignUp = async (userName, userPassword, userFullname, userAge, userAddress, userPhone) => {
     try{
         console.log('userName: ', userName)
         console.log('userPassword: ', userPassword)
+
         const checkUserFromCustomer = await postgresql.query(
             `SELECT user_name FROM customer WHERE user_name = '${userName}'`
         )
@@ -16,12 +17,14 @@ const customerSignUp = async (userName, userPassword) => {
             `SELECT user_name FROM admin WHERE user_name= '${userName}'`
         )
 
+
+
         if ( !checkUserFromCustomer.rows.length && !checkUserFromAdmin.rows.length ){
             const token = jwt.sign({_id: userName}, SECRET_TOKEN)
 
             const insertAccount = await postgresql.query(
-                `INSERT INTO customer(user_name, password, token) 
-                VALUES ('${userName}', '${userPassword}', '${token}');`
+                `INSERT INTO customer(user_name, password, user_fullname, user_age, user_phone, user_address, token) 
+                VALUES ('${userName}', '${userPassword}','${userFullname}','${userAge}','${userPhone}','${userAddress}' '${token}');`
             )
 
             const getCustomerId = await postgresql.query(

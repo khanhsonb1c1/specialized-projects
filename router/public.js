@@ -6,8 +6,8 @@ const {publicMiddleware} = require('../middleware/public');
 
 
 router.post('/signup', bodyParser(), async (req, res) => {
-    const { userName, userPassword } = req.body
-    const results = await publicMiddleware.customerSignUp(userName, userPassword)
+    const { userName, userPassword,userFullname, userAddress, userPhone, userAge } = req.body
+    const results = await publicMiddleware.customerSignUp(userName, userPassword, userFullname, userAddress, userPhone, userAge)
     res.json(results)
 })
 
