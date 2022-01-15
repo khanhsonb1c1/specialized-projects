@@ -4,8 +4,8 @@ const SALT_ROUND = 10;
 const jwt = require("jsonwebtoken")
 const SECRET_TOKEN = 'FACE_TAG'
 
-const customerSignUp = async (userName, userPassword, userFullname, userAge, userAddress, userPhone) => {
-    try{
+const customerSignUp = async(userName, userPassword, userFullname, userAge, userAddress, userPhone) => {
+    try {
         console.log('userName: ', userName)
         console.log('userPassword: ', userPassword)
 
@@ -19,19 +19,19 @@ const customerSignUp = async (userName, userPassword, userFullname, userAge, use
 
 
 
-        if ( !checkUserFromCustomer.rows.length && !checkUserFromAdmin.rows.length ){
-            const token = jwt.sign({_id: userName}, SECRET_TOKEN)
+        if (!checkUserFromCustomer.rows.length && !checkUserFromAdmin.rows.length) {
+            const token = jwt.sign({ _id: userName }, SECRET_TOKEN)
 
             const insertAccount = await postgresql.query(
                 `INSERT INTO customer(user_name, password, user_fullname, user_age, user_phone, user_address, token) 
-                VALUES ('${userName}', '${userPassword}','${userFullname}','${userAge}','${userPhone}','${userAddress}' '${token}');`
+                VALUES ('${userName}', '${userPassword}','${userFullname}','${userAge}','${userPhone}','${userAddress}','${token}');`
             )
 
             const getCustomerId = await postgresql.query(
                 `SELECT user_id FROM customer WHERE user_name = '${userName}'`
             )
 
-            if ( insertAccount.rows ){
+            if (insertAccount.rows) {
                 return {
                     success: true,
                     payload: {
@@ -43,14 +43,14 @@ const customerSignUp = async (userName, userPassword, userFullname, userAge, use
                 }
             }
 
-        }else{
+        } else {
             throw new Error('Tên đăng nhập tồn tại')
         }
 
         return {
             success: true,
         }
-    }catch(err){
+    } catch (err) {
         return {
             success: false,
             error: {
@@ -60,8 +60,8 @@ const customerSignUp = async (userName, userPassword, userFullname, userAge, use
     }
 }
 
-const customerLogin = async ( userName, userPassword ) => {
-    try{
+const customerLogin = async(userName, userPassword) => {
+    try {
         const checkUserFromCustomer = await postgresql.query(
             `SELECT user_id, user_name, password, token FROM customer WHERE user_name = '${userName}'`
         )
@@ -70,10 +70,10 @@ const customerLogin = async ( userName, userPassword ) => {
             `SELECT admin_id, user_name, password, token FROM admin WHERE user_name= '${userName}'`
         )
 
-        if ( checkUserFromCustomer.rows.length ){
+        if (checkUserFromCustomer.rows.length) {
             const accountRow = checkUserFromCustomer.rows[0]
 
-            if ( bcrypt.compareSync(userPassword, accountRow.password )){
+            if (bcrypt.compareSync(userPassword, accountRow.password)) {
                 return {
                     success: true,
                     payload: {
@@ -83,30 +83,30 @@ const customerLogin = async ( userName, userPassword ) => {
                         ctm_usr: userName
                     }
                 }
-            }else{
+            } else {
                 throw new Error("Sai mật khẩu")
             }
 
-        }else if ( checkEmailFromAdmin.rows.length ){
+        } else if (checkEmailFromAdmin.rows.length) {
             const accountRow = checkEmailFromAdmin.rows[0]
-            if ( bcrypt.compareSync(userPassword, accountRow.password )){
+            if (bcrypt.compareSync(userPassword, accountRow.password)) {
                 return {
                     success: true,
                     payload: {
                         ctm_tk: accountRow.token,
                         ctm_rl: 'a',
-                        ctm_id : accountRow.admin_id
+                        ctm_id: accountRow.admin_id
                     }
                 }
-            }else{
+            } else {
                 throw new Error("Sai mật khẩu")
             }
 
-        }else {
+        } else {
             throw new Error("Thông tin đăng nhập không chính xác")
         }
 
-    }catch(err){
+    } catch (err) {
         return {
             success: false,
             error: {
@@ -116,21 +116,62 @@ const customerLogin = async ( userName, userPassword ) => {
     }
 }
 
-const getCategory = async () => {
+
+
+const getUserInfor = async() => {
+    try {
+        const getUserInfor = await postgresql.query(
+            `SELECT user_name , user_fullname , user_age, user_phone , user_address FROM customer WHERE user_name=${Number(user_id)}`
+        )
+
+        if (getUserInfor.rows) {
+            return {
+                success: true,
+                payload: getUserInfor.rows
+            }
+        } else {
+            throw new Error('Lấy thông tin tai khoan thất bại')
+        }
+    } catch (error) {
+        return {
+            success: false,
+            error: {
+                message: error.message
+            }
+        }
+    }
+}
+
+
+
+
+const getUserOder = async() => {
+
+}
+
+
+const updateUserInfor = async() => {
+
+}
+
+
+
+
+const getCategory = async() => {
     try {
         const getCategory = await postgresql.query(
             `SELECT * FROM category`
         )
 
-        if ( getCategory.rows ){
+        if (getCategory.rows) {
             return {
                 success: true,
                 payload: getCategory.rows
             }
-        }else {
+        } else {
             throw new Error('Lấy thông tin danh mục thất bại')
         }
-    }catch(error){
+    } catch (error) {
         return {
             success: false,
             error: {
@@ -140,21 +181,21 @@ const getCategory = async () => {
     }
 }
 
-const getProduct = async () => {
+const getProduct = async() => {
     try {
         const getProduct = await postgresql.query(
             `SELECT * FROM product`
         )
 
-        if ( getProduct.rows ){
+        if (getProduct.rows) {
             return {
                 success: true,
                 payload: getProduct.rows
             }
-        }else {
+        } else {
             throw new Error('Lấy thông tin sản phẩm thất bại')
         }
-    }catch(error){
+    } catch (error) {
         return {
             success: false,
             error: {
@@ -164,20 +205,20 @@ const getProduct = async () => {
     }
 }
 
-const getNewProductAsCategoryId = async (categoryId) => {
-    try{
+const getNewProductAsCategoryId = async(categoryId) => {
+    try {
         const getProduct = await postgresql.query(
             `SELECT * FROM product WHERE category_id=${Number(categoryId)} ORDER BY product_create_date DESC LIMIT 10`
         )
 
-        if ( getProduct.rows ){
+        if (getProduct.rows) {
             return {
                 success: true,
                 payload: getProduct.rows
             }
         }
 
-    }catch(error) {
+    } catch (error) {
         return {
             success: false,
             error: {
@@ -187,15 +228,15 @@ const getNewProductAsCategoryId = async (categoryId) => {
     }
 }
 
-const getProductByCategory = async (page, category, searchValue) => {
-    try{
+const getProductByCategory = async(page, category, searchValue) => {
+    try {
         const getProduct = await postgresql.query(
             `SELECT * FROM product WHERE category_id=${Number(category)} AND upper(product_name) like '%${searchValue.toUpperCase()}%' offset ${(Number(page) - 1) * 20 } LIMIT 20`
         )
 
         const getTotalItem = await postgresql.query(`SELECT * FROM product WHERE category_id=${Number(category)} AND product_name like '%${searchValue}%'`)
 
-        if ( getProduct.rows ){
+        if (getProduct.rows) {
             return {
                 success: true,
                 payload: getProduct.rows,
@@ -204,7 +245,7 @@ const getProductByCategory = async (page, category, searchValue) => {
             }
         }
 
-    }catch(error){
+    } catch (error) {
         return {
             success: false,
             error: {
@@ -214,19 +255,19 @@ const getProductByCategory = async (page, category, searchValue) => {
     }
 }
 
-const getProductDetail = async (productId) => {
-    try{
+const getProductDetail = async(productId) => {
+    try {
         const getProductDetail = await postgresql.query(
             `SELECT * FROM product WHERE product_id=${Number(productId)}`
         )
 
-        if ( getProductDetail.rows && getProductDetail.rows.length ){
+        if (getProductDetail.rows && getProductDetail.rows.length) {
             return {
                 success: true,
                 payload: getProductDetail.rows[0]
             }
         }
-    }catch(error){
+    } catch (error) {
         return {
             success: false,
             error: {
@@ -244,4 +285,8 @@ module.exports.publicMiddleware = {
     getNewProductAsCategoryId,
     getProductByCategory,
     getProductDetail,
+    getUserInfor,
+    getUserOder,
+    updateUserInfor,
+
 }
