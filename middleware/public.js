@@ -118,10 +118,10 @@ const customerLogin = async(userName, userPassword) => {
 
 
 
-const getUserInfor = async() => {
+const getUserInfor = async(userId) => {
     try {
         const getUserInfor = await postgresql.query(
-            `SELECT user_name , user_fullname , user_age, user_phone , user_address FROM customer WHERE user_name=${Number(user_id)}`
+            `SELECT * FROM customer WHERE user_name=${Number(userId)}`
         )
 
         if (getUserInfor.rows) {
@@ -141,6 +141,9 @@ const getUserInfor = async() => {
         }
     }
 }
+
+
+
 
 
 
