@@ -16,32 +16,33 @@ const app = express();
 const routerPrivate = express.Router();
 const routerPublic = express.Router();
 
-app.use(express.json({limit: '50mb'}));
-app.use(express.urlencoded({limit: '50mb'}));
+app.use(express.json({ limit: '50mb' }));
+app.use(express.urlencoded({ limit: '50mb' }));
 // app.use('/', express.static('./public'));
 
-app.use(session({ resave: true ,secret: '123456' , saveUninitialized: true}));
+app.use(session({ resave: true, secret: '123456', saveUninitialized: true }));
 
 app.use(cors())
 
-app.use(function (req, res, next) {
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-  res.setHeader('Access-Control-Allow-Headers', '*');
-  res.setHeader('Access-Control-Allow-Credentials', true);
-  next();
+app.use(function(req, res, next) {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+    res.setHeader('Access-Control-Allow-Headers', '*');
+    res.setHeader('Access-Control-Allow-Credentials', true);
+    next();
 });
 
 
 routerPublic.use('/api/public', publicRouter);
 routerPublic.use('/api/product', productRouter);
 routerPublic.use('/api/cart', cartRoter);
+
 app.use(routerPublic);
 
 
 routerPrivate.use(verifyToken)
-// routerPrivate.use('/api/product', productRouter);
-// routerPrivate.use('/api/customer', customerRouter);
+    // routerPrivate.use('/api/product', productRouter);
+    // routerPrivate.use('/api/customer', customerRouter);
 
 
 app.use(routerPrivate);

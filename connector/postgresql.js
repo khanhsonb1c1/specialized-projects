@@ -2,7 +2,7 @@ const { Pool } = require('pg')
 
 // POSTGRES_USER = 'postgres'
 // POSTGRES_HOST = 'localhost'
-// POSTGRES_DB = 'gear-shop'
+// POSTGRES_DB = 'postgres'
 // POSTGRES_PWD = '123456'
 // POSTGRES_PORT = '5432'
 
@@ -25,33 +25,33 @@ POSTGRES_PORT = '5432'
 
 
 const pgConfig = {
-  user: POSTGRES_USER,
-  host: POSTGRES_HOST,
-  database: POSTGRES_DB,
-  password: POSTGRES_PWD,
-  port: POSTGRES_PORT,
-  ssl: true
+    user: POSTGRES_USER,
+    host: POSTGRES_HOST,
+    database: POSTGRES_DB,
+    password: POSTGRES_PWD,
+    port: POSTGRES_PORT,
+    ssl: true
 }
 
 
 const pool = new Pool(pgConfig)
-/**
- *
- * @param {String} queryStr
- * @returns Object
- */
+    /**
+     *
+     * @param {String} queryStr
+     * @returns Object
+     */
 
-const query = async (queryStr) => {
-  const client = await pool.connect()
-  try {
-    return await client.query(queryStr)
-  } catch (error) {
-    throw error
-  } finally {
-    client.release()
-  }
+const query = async(queryStr) => {
+    const client = await pool.connect()
+    try {
+        return await client.query(queryStr)
+    } catch (error) {
+        throw error
+    } finally {
+        client.release()
+    }
 }
 
 module.exports.postgresql = {
-  query,
+    query,
 }

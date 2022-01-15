@@ -288,8 +288,12 @@ module.exports.publicMiddleware = {
     getNewProductAsCategoryId,
     getProductByCategory,
     getProductDetail,
+<<<<<<< HEAD
     getUserInfor,
     getUserOder,
     updateUserInfor,
 
 }
+=======
+}
+>>>>>>> 9903049c463130432a570a28d21d74f45ea584cd
